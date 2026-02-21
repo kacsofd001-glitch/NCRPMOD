@@ -1,8 +1,11 @@
 import json
 import os
 import tempfile
+import threading
+from datetime import datetime
 
 CONFIG_FILE = 'bot_config.json'
+CONFIG_BACKUP_FILE = 'bot_config.backup.json'
 
 DEFAULT_CONFIG = {
     'log_channel_id': None,
@@ -20,35 +23,73 @@ DEFAULT_CONFIG = {
     'role_prefixes': {},
     'webhook_url': None,
     'guild_languages': {},
-    'guild_prefixes': {}
+    'guild_prefixes': {},
+    'last_saved': None
 }
 
+# Global config cache for faster access
+_config_cache = None
+_cache_lock = threading.Lock()
+
 def load_config():
+    """Load config from file with fallback to backup"""
+    global _config_cache
+    
     if os.path.exists(CONFIG_FILE):
         try:
             with open(CONFIG_FILE, 'r') as f:
-                return json.load(f)
+                config = json.load(f)
+                _config_cache = config
+                return config
         except (json.JSONDecodeError, EOFError):
-            # Attempt to recover or return default if corrupted
-            print(f"Warning: {CONFIG_FILE} corrupted, returning default config")
+            print(f"⚠️  Warning: {CONFIG_FILE} corrupted, attempting to recover from backup")
+            if os.path.exists(CONFIG_BACKUP_FILE):
+                try:
+                    with open(CONFIG_BACKUP_FILE, 'r') as f:
+                        config = json.load(f)
+                        _config_cache = config
+                        return config
+                except:
+                    pass
+            print(f"❌ Config recovery failed, returning default config")
             return DEFAULT_CONFIG.copy()
     return DEFAULT_CONFIG.copy()
 
 def save_config(config_data):
     """Save config atomically to prevent corruption"""
-    # Create a temporary file in the same directory
-    fd, temp_path = tempfile.mkstemp(dir=os.path.dirname(os.path.abspath(CONFIG_FILE)), prefix='config_tmp_')
+    global _config_cache
+    
     try:
-        with os.fdopen(fd, 'w') as f:
-            json.dump(config_data, f, indent=4)
-            f.flush()
-            os.fsync(f.fileno())
-        # Atomic rename
-        os.replace(temp_path, CONFIG_FILE)
+        # Update timestamp
+        config_data['last_saved'] = datetime.now().isoformat()
+        
+        # Create backup first
+        if os.path.exists(CONFIG_FILE):
+            try:
+                with open(CONFIG_FILE, 'r') as f:
+                    backup_data = json.load(f)
+                with open(CONFIG_BACKUP_FILE, 'w') as f:
+                    json.dump(backup_data, f, indent=4)
+            except:
+                pass
+        
+        # Create a temporary file in the same directory
+        fd, temp_path = tempfile.mkstemp(dir=os.path.dirname(os.path.abspath(CONFIG_FILE)), prefix='config_tmp_')
+        try:
+            with os.fdopen(fd, 'w') as f:
+                json.dump(config_data, f, indent=4)
+                f.flush()
+                os.fsync(f.fileno())
+            # Atomic rename
+            os.replace(temp_path, CONFIG_FILE)
+            _config_cache = config_data
+            print(f"✅ Config saved successfully at {config_data['last_saved']}")
+        except Exception as e:
+            if os.path.exists(temp_path):
+                os.remove(temp_path)
+            raise e
     except Exception as e:
-        if os.path.exists(temp_path):
-            os.remove(temp_path)
-        raise e
+        print(f"❌ Failed to save config: {e}")
 
 def get_config():
     return load_config()
