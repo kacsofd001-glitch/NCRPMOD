@@ -113,26 +113,8 @@ class DiscordBot(commands.Bot):
         print(f"\n✅ All cogs loaded! ({loaded_count}/{len(cogs_to_load)})")
         
     async def on_ready(self):
-        print(f'✅ Bot is ready! Logged in as {self.user}')
-        print(f'✅ Bot ID: {self.user.id}')
-        print('------')
-        print(f'📊 Connected to {len(self.guilds)} guilds')
-        
-        try:
-            synced = await self.tree.sync()
-            print(f'✅ Synced {len(synced)} slash commands')
-        except Exception as e:
-            print(f'❌ Failed to sync commands: {e}')
-        
-        await self.change_presence(
-            activity=discord.Activity(
-                type=discord.ActivityType.watching,
-                name="🌐 /help | Futuristic Bot"
-            )
-        )
-        
-        # Update stats file for web server
-        self.update_stats_file()
+        """This method is now replaced by the standalone event handler"""
+        pass
     
     def update_stats_file(self):
         """Update bot stats for web server"""
@@ -154,6 +136,50 @@ class DiscordBot(commands.Bot):
             pass
 
 bot = DiscordBot()
+
+@bot.event
+async def on_ready():
+    print(f'✅ Bot is ready! Logged in as {bot.user}')
+    print(f'✅ Bot ID: {bot.user.id}')
+    print('------')
+    print(f'📊 Connected to {len(bot.guilds)} guilds')
+    
+    try:
+        synced = await bot.tree.sync()
+        print(f'✅ Synced {len(synced)} slash commands')
+    except Exception as e:
+        print(f'❌ Failed to sync commands: {e}')
+    
+    await bot.change_presence(
+        activity=discord.Activity(
+            type=discord.ActivityType.watching,
+            name="🌐 /help | Futuristic Bot"
+        )
+    )
+    
+    # Update stats file for web server
+    bot.update_stats_file()
+
+@bot.event
+async def on_error(event, *args, **kwargs):
+    """Global error handler"""
+    print(f"❌ Error in event {event}:", exc_info=True)
+
+async def save_config_on_close():
+    """Save all config data before bot closes"""
+    print("💾 Saving configuration before shutdown...")
+    try:
+        cfg = config.load_config()
+        config.save_config(cfg)
+        print("✅ Configuration saved successfully!")
+    except Exception as e:
+        print(f"❌ Failed to save configuration on shutdown: {e}")
+
+@bot.event
+async def on_disconnect():
+    """Handle bot disconnection"""
+    print("⚠️  Bot disconnected from Discord. Saving config...")
+    await save_config_on_close()
 
 @bot.tree.error
 async def on_app_command_error(interaction: discord.Interaction, error: discord.app_commands.AppCommandError):
@@ -374,5 +400,19 @@ if __name__ == '__main__':
     try:
         # Ez a sor CSAK akkor fut le, ha a python main.py-t indítod
         bot.run(TOKEN)
+    except KeyboardInterrupt:
+        print("\n⏹️  Bot interrupted by user. Saving configuration...", flush=True)
+        try:
+            cfg = config.load_config()
+            config.save_config(cfg)
+            print("✅ Configuration saved on shutdown!", flush=True)
+        except Exception as e:
+            print(f"❌ Failed to save config on shutdown: {e}", flush=True)
     except Exception as e:
         print(f"❌ Bot crashed: {e}", flush=True)
+        try:
+            cfg = config.load_config()
+            config.save_config(cfg)
+            print("✅ Configuration saved after crash!", flush=True)
+        except Exception as e2:
+            print(f"❌ Failed to save config after crash: {e2}", flush=True)
