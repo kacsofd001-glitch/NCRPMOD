@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Shadow-MOD ✨ | Command Database</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=202511092455">
+    <style>
+        .command-section {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(0, 243, 255, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .command-section:hover {
+            border-color: rgba(0, 243, 255, 0.8);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+            transform: translateY(-5px);
+        }
+        
+        .command-section h2 {
+            color: #00F3FF;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .command-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(139, 0, 255, 0.1);
+            border-left: 3px solid #8B00FF;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .command-name {
+            color: #FF006E;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .command-desc {
+            color: #B0B0B0;
+            margin-left: 10px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #8B00FF, #FF006E);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(139, 0, 255, 0.4);
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(139, 0, 255, 0.6);
+        }
+        
+        .page-title {
+            font-size: 2.5em;
+            color: #00F3FF;
+            text-align: center;
+            margin: 30px 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+        }
+        
+        .page-subtitle {
+            text-align: center;
+            color: #8B00FF;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/dashboard" class="nav-link">
+                📊 <span data-translate="nav_dashboard">Dashboard</span>
+            </a>
+            <a href="/help" class="nav-link pink">
+                📖 <span data-translate="nav_commands">Commands</span>
+            </a>
+            <a href="https://discord.gg/w6s6qA4E7E" target="_blank" class="nav-link purple">
+                💬 <span data-translate="nav_support">Support</span>
+            </a>
+            <a href="https://discord.com/api/oauth2/authorize?client_id=928675592159780915&permissions=8&scope=bot%20applications.commands" target="_blank" class="nav-link gradient">
+                ➕ <span data-translate="nav_addbot">Add Bot</span>
+            </a>
+            
+            <div class="lang-toggle-container">
+                <span class="lang-label en">EN</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="langToggle">
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-knob"></span>
+                </label>
+                <span class="lang-label hu">HU</span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        
+        <h1 class="page-title" data-translate="help_title">⚡ COMMAND DATABASE</h1>
+        <p class="page-subtitle" data-translate="help_subtitle">Made by MoonlightVFX</p>
+        
+        <div class="command-section">
+            <h2 data-translate="cat_info">📊 INFORMATION SYSTEMS</h2>
+            <div class="command-item">
+                <span class="command-name">/help</span>
+                <span class="command-desc">- Display all available commands (shows current prefix)</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/serverinfo</span>
+                <span class="command-desc">- Server statistics & details</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/botinfo</span>
+                <span class="command-desc">- Bot features & uptime</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/userinfo [@user]</span>
+                <span class="command-desc">- User profile with badges</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/support</span>
+                <span class="command-desc">- Support server link</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/webpage</span>
+                <span class="command-desc">- Live web dashboard</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2 data-translate="cat_security">🔐 SECURITY & VERIFICATION</h2>
+            <div class="command-item">
+                <span class="command-name">/setupverify</span>
+                <span class="command-desc">- Deploy verification system</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/setlog #channel</span>
+                <span class="command-desc">- Set log channel for alerts</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2 data-translate="cat_antialt">🛡️ ANTI-ALT SYSTEM</h2>
+            <div class="command-item">
+                <span class="command-name">Auto-detection</span>
+                <span class="command-desc">- Automatically detects new accounts on join</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/setaltage &lt;days&gt;</span>
+                <span class="command-desc">- Set minimum account age (default: 7 days)</span>
+            </div>
+            <div class="command-item">
+                <span class="command-desc">Alerts sent to log channel automatically</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2 data-translate="cat_mod">⚔️ MODERATION MATRIX</h2>
+            <div class="command-item">
+                <span class="command-name">/ban</span>
+                <span class="command-desc">- Ban a user from the server</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/kick</span>
+                <span class="command-desc">- Kick a user from the server</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/mute</span>
+                <span class="command-desc">- Mute a user permanently</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/unmute</span>
+                <span class="command-desc">- Unmute a user</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/tempmute &lt;user&gt; &lt;time&gt;</span>
+                <span class="command-desc">- Discord timeout (max 28 days)</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/purge &lt;1-100&gt;</span>
+                <span class="command-desc">- Bulk message deletion</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/warn</span>
+                <span class="command-desc">- Warn a user</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/lock</span>
+                <span class="command-desc">- Lock a channel</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/unlock</span>
+                <span class="command-desc">- Unlock a channel</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/say &lt;message&gt;</span>
+                <span class="command-desc">- Make the bot send a message</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/embedsay &lt;desc&gt; [title] [color]</span>
+                <span class="command-desc">- Send a custom embed message</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2 data-translate="cat_ai">🧠 AI NEURAL LINK</h2>
+            <div class="command-item">
+                <span class="command-name">@Shadow-MOD ✨</span>
+                <span class="command-desc">- Mention the bot to activate AI assistant</span>
+            </div>
+            <div class="command-item">
+                <span class="command-desc">Responds in English or Hungarian based on server language</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2>🎵 MUSIC SYSTEM</h2>
+            <p style="color: #8B00FF; margin-bottom: 15px; font-size: 1.1em;">
+                Supports: <span style="color: #FF0000;">🎥 YouTube</span> • <span style="color: #1DB954;">🟢 Spotify</span> • <span style="color: #FF5500;">☁️ SoundCloud</span>
+            </p>
+            <p style="color: #00F3FF; margin-bottom: 15px; font-size: 0.95em; font-style: italic;">
+                All music commands support both <strong>/</strong> (slash) and <strong>!</strong> (exclamation) prefixes
+            </p>
+            <div class="command-item">
+                <span class="command-name">/play &lt;song/URL&gt;</span>
+                <span class="command-desc">- Play music from any platform</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/pause</span>
+                <span class="command-desc">- Pause the current playback</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/resume</span>
+                <span class="command-desc">- Resume paused playback</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/skip</span>
+                <span class="command-desc">- Skip to the next song in queue</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/stop</span>
+                <span class="command-desc">- Stop playback and disconnect from voice</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/queue</span>
+                <span class="command-desc">- Display the music queue</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/nowplaying</span>
+                <span class="command-desc">- Show currently playing track</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/loop</span>
+                <span class="command-desc">- Toggle loop mode</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/volume &lt;0-100&gt;</span>
+                <span class="command-desc">- Adjust playback volume</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2 data-translate="cat_entertainment">🎮 ENTERTAINMENT SYSTEMS</h2>
+            <div class="command-item">
+                <span class="command-name">/rps</span>
+                <span class="command-desc">- Rock-Paper-Scissors game</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/tictactoe</span>
+                <span class="command-desc">- Tic-Tac-Toe game</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/meme</span>
+                <span class="command-desc">- Generate random memes</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/8ball &lt;question&gt;</span>
+                <span class="command-desc">- Ask the magic 8-ball</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/coinflip</span>
+                <span class="command-desc">- Flip a coin</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/dice [sides]</span>
+                <span class="command-desc">- Roll dice (default: 6 sides)</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/trivia</span>
+                <span class="command-desc">- Start a trivia session</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/blackjack</span>
+                <span class="command-desc">- Play Blackjack against the bot</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/slots</span>
+                <span class="command-desc">- Try your luck with slots</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/connectfour</span>
+                <span class="command-desc">- Play Connect Four</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2 data-translate="cat_economy">💰 ECONOMY & WEALTH</h2>
+            <div class="command-item">
+                <span class="command-name">/balance</span>
+                <span class="command-desc">- Check your coin balance</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/work</span>
+                <span class="command-desc">- Earn coins by working</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/daily</span>
+                <span class="command-desc">- Claim your daily reward</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/shop</span>
+                <span class="command-desc">- View available items</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/buy &lt;item&gt;</span>
+                <span class="command-desc">- Purchase an item</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/rob &lt;user&gt;</span>
+                <span class="command-desc">- Attempt to rob a user</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/pay &lt;user&gt; &lt;amount&gt;</span>
+                <span class="command-desc">- Send coins to another user</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/top</span>
+                <span class="command-desc">- View the economy leaderboard</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/inventory</span>
+                <span class="command-desc">- View your owned items</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2 data-translate="cat_voice">🔊 TEMPORARY VOICE CHANNELS</h2>
+            <div class="command-item">
+                <span class="command-name">/setupvoice #channel [category]</span>
+                <span class="command-desc">- Setup the "Join to Create" system</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/voicename &lt;name&gt;</span>
+                <span class="command-desc">- Change your temporary channel name</span>
+            </div>
+            <div class="command-item">
+                <span class="command-desc" style="color: #00F3FF;">Channels are automatically deleted when empty!</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2 data-translate="cat_nameauto">🏷️ NAME AUTOMATION</h2>
+            <div class="command-item">
+                <span class="command-name">/setprefix &lt;@role&gt; &lt;prefix&gt;</span>
+                <span class="command-desc">- Set role-based name prefix</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/removeprefix &lt;@role&gt;</span>
+                <span class="command-desc">- Remove role prefix</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/viewprefixes</span>
+                <span class="command-desc">- View all configured prefixes</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2>🛡️ AUTO-MODERATION</h2>
+            <div class="command-item">
+                <span class="command-name">/automod enable</span>
+                <span class="command-desc">- Enable auto-moderation system</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/automod disable</span>
+                <span class="command-desc">- Disable auto-moderation</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/automod settings</span>
+                <span class="command-desc">- View current configuration</span>
+            </div>
+            <div class="command-item">
+                <span class="command-desc" style="color: #00F3FF;">Auto-detects: spam, bad words, links, excessive caps, emoji spam</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2>👋 WELCOME & GOODBYE</h2>
+            <div class="command-item">
+                <span class="command-name">/setwelcome #channel [message]</span>
+                <span class="command-desc">- Setup welcome messages</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/setgoodbye &lt;enabled&gt; [message]</span>
+                <span class="command-desc">- Setup goodbye messages</span>
+            </div>
+            <div class="command-item">
+                <span class="command-desc" style="color: #00F3FF;">Supports placeholders: {user}, {server}, {count}</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2>🎭 REACTION ROLES</h2>
+            <div class="command-item">
+                <span class="command-name">/reactionrole &lt;msg_id&gt; &lt;emoji&gt; &lt;@role&gt;</span>
+                <span class="command-desc">- Setup reaction roles on messages</span>
+            </div>
+            <div class="command-item">
+                <span class="command-desc" style="color: #00F3FF;">Users get roles by reacting to messages</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2>⭐ LEVELING & XP SYSTEM</h2>
+            <div class="command-item">
+                <span class="command-name">/rank [@user]</span>
+                <span class="command-desc">- Check your or another user's level and XP</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/leaderboard</span>
+                <span class="command-desc">- Show server top 10 rankings</span>
+            </div>
+            <div class="command-item">
+                <span class="command-desc" style="color: #00F3FF;">Earn XP by chatting, level up to unlock role rewards!</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2>⏰ REMINDERS & AFK</h2>
+            <div class="command-item">
+                <span class="command-name">/remind &lt;time&gt; &lt;message&gt;</span>
+                <span class="command-desc">- Set a reminder (e.g., 1h, 30m, 2d)</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/afk [reason]</span>
+                <span class="command-desc">- Set your AFK status</span>
+            </div>
+            <div class="command-item">
+                <span class="command-desc" style="color: #00F3FF;">Bot auto-notifies when AFK users are mentioned</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2>📊 SERVER ANALYTICS</h2>
+            <div class="command-item">
+                <span class="command-name">/serverstats</span>
+                <span class="command-desc">- Show comprehensive server statistics</span>
+            </div>
+            <div class="command-item">
+                <span class="command-desc" style="color: #00F3FF;">Tracks: total messages, most active users, growth trends</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2>💡 SUGGESTION SYSTEM</h2>
+            <div class="command-item">
+                <span class="command-name">/setupsuggestions #channel</span>
+                <span class="command-desc">- Enable suggestion system</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/suggest &lt;idea&gt;</span>
+                <span class="command-desc">- Submit a suggestion</span>
+            </div>
+            <div class="command-item">
+                <span class="command-desc" style="color: #00F3FF;">Community votes with 👍 👎 reactions</span>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h2 data-translate="cat_language">🌐 SYSTEM CONFIGURATION</h2>
+            <div class="command-item">
+                <span class="command-name">/setlang &lt;en/hu&gt;</span>
+                <span class="command-desc">- Switch server language (English/Hungarian)</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/setbotprefix &lt;prefix&gt;</span>
+                <span class="command-desc">- Change bot command prefix (default: !)</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/setwebhook &lt;url&gt;</span>
+                <span class="command-desc">- Configure webhook logging</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/ping</span>
+                <span class="command-desc">- Check bot latency</span>
+            </div>
+        </div>
+
+        <div class="command-section" style="border-color: rgba(255, 215, 0, 0.5);">
+            <h2 style="color: #FFD700;">👑 OWNER COMMANDS (Bot Owner Only)</h2>
+            <div class="command-item">
+                <span class="command-name">/servers</span>
+                <span class="command-desc">- List all servers (name + ID)</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/createinvite &lt;server_id&gt;</span>
+                <span class="command-desc">- Create permanent invite for a server</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/addcc &lt;name&gt; &lt;response&gt;</span>
+                <span class="command-desc">- Add a custom command</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/rcc &lt;name&gt;</span>
+                <span class="command-desc">- Remove a custom command</span>
+            </div>
+            <div class="command-item">
+                <span class="command-name">/mcc &lt;name&gt; &lt;response&gt;</span>
+                <span class="command-desc">- Modify a custom command</span>
+            </div>
+        </div>
+
+        <div class="command-section" style="text-align: center; border-color: rgba(255, 0, 110, 0.5);">
+            <h2 style="color: #FF006E;">✨ FEATURES</h2>
+            <p style="color: #00F3FF; font-size: 1.1em; line-height: 1.8;">
+                ⚡ 75+ Slash Commands | Active Developer Ready<br>
+                🌐 Multilingual Support (EN/HU)<br>
+                🤖 AI-Powered Chat Assistant<br>
+                🔐 Advanced Security & Verification<br>
+                📊 Real-Time Web Dashboard<br>
+                🎮 Interactive Games & Entertainment<br>
+                🛡️ Anti-Alt Detection & Auto-Moderation<br>
+                ⚙️ Webhook Error Logging<br>
+                ⭐ XP & Leveling System<br>
+                👋 Welcome/Goodbye Messages<br>
+                🎭 Reaction Roles<br>
+                ⏰ Reminders & AFK Status<br>
+                📊 Server Analytics<br>
+                💡 Community Suggestions
+            </p>
+        </div>
+
+        <div class="command-section" style="text-align: center; border-color: rgba(0, 243, 255, 0.5);">
+            <h2 style="color: #00F3FF;">🔗 QUICK LINKS</h2>
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+                <a href="https://discord.gg/w6s6qA4E7E" target="_blank" style="display: inline-block; padding: 12px 25px; background: linear-gradient(135deg, #00F3FF, #8B00FF); color: white; text-decoration: none; border-radius: 20px; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 243, 255, 0.4);">
+                    💬 Join Support Server
+                </a>
+                <a href="https://discord.com/api/oauth2/authorize?client_id=928675592159780915&permissions=8&scope=bot%20applications.commands" target="_blank" style="display: inline-block; padding: 12px 25px; background: linear-gradient(135deg, #FF006E, #8B00FF); color: white; text-decoration: none; border-radius: 20px; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(255, 0, 110, 0.4);">
+                    ➕ Add Bot to Server
+                </a>
+            </div>
+        </div>
+
+        <div style="background: rgba(0, 0, 0, 0.6); border: 2px solid rgba(139, 0, 255, 0.3); border-radius: 15px; padding: 25px; margin: 30px 0; text-align: center;">
+            <h2 style="color: #00F3FF; font-size: 1.5em; margin-bottom: 15px;">👑 MEET THE DEVELOPER</h2>
+            <p style="color: #FF006E; font-size: 1.2em; font-weight: bold; margin-bottom: 10px;">Bot Owner & Creator</p>
+            <p style="color: #B0B0B0; font-size: 1em; line-height: 1.6; max-width: 700px; margin: 0 auto;">
+                Shadow-MOD is developed and maintained with passion to bring the next generation of Discord moderation to your servers. Built with cutting-edge technology and futuristic design, this bot combines powerful features with an intuitive user experience.
+            </p>
+            <div style="margin-top: 15px; padding: 12px; background: rgba(139, 0, 255, 0.1); border-left: 3px solid #8B00FF; border-radius: 8px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                <p style="color: #00F3FF; font-weight: bold; margin-bottom: 5px;">✨ Vision</p>
+                <p style="color: #B0B0B0; font-size: 0.95em;">Creating a futuristic Discord experience with AI-powered moderation, multilingual support, and seamless automation for communities worldwide.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <a href="/dashboard" class="back-btn">← Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

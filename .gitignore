@@ -1,0 +1,13 @@
+.env
+bot_config.json
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.pythonlibs/
+*.so
+*.egg
+*.egg-info/
+dist/
+build/

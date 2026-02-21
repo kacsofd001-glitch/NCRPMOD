@@ -1,0 +1,6 @@
+# Futuristic Neon Color Scheme
+NEON_CYAN = 0x00F3FF     # Primary actions, success
+NEON_PINK = 0xFF006E     # Errors, bans, critical
+NEON_PURPLE = 0x8B00FF   # Secondary, info
+NEON_BLUE = 0x0066FF     # Normal actions
+DARK_BG = 0x0A0A0F       # Background

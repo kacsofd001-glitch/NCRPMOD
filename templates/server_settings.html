@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="settings_title">Server Settings - Shadow-MOD</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><a href="/" style="color: #00d4ff; text-decoration: none;">Shadow-MOD</a></div>
+            <div class="nav-links">
+                <div class="lang-toggle">
+                    <label for="langToggle" class="lang-label">
+                        <input type="checkbox" id="langToggle">
+                        <span class="lang-text" data-translate="lang_en">EN</span>
+                        <span class="lang-slider"></span>
+                        <span class="lang-text" data-translate="lang_hu">HU</span>
+                    </label>
+                </div>
+                <span class="user-info">
+                    <img src="{{ avatar_url }}" alt="{{ username }}" class="user-avatar">
+                    {{ username }}
+                </span>
+                <a href="/auth/logout" class="logout-btn" data-translate="logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="back-link">
+            <a href="/dashboard" data-translate="back">← Back to Servers</a>
+        </div>
+
+        <div class="settings-header">
+            <h1 data-translate="settings_header">Server Settings</h1>
+            <p id="guildId">Guild ID: {{ guild_id }}</p>
+        </div>
+
+        <div class="settings-tabs">
+            <button class="tab-btn active" data-tab="moderation" data-translate="tab_moderation">Moderation</button>
+            <button class="tab-btn" data-tab="automod" data-translate="tab_automod">Auto Moderation</button>
+            <button class="tab-btn" data-tab="logging" data-translate="tab_logging">Logging</button>
+            <button class="tab-btn" data-tab="welcome" data-translate="tab_welcome">Welcome</button>
+            <button class="tab-btn" data-tab="badwords" data-translate="tab_badwords">Bad Words</button>
+            <button class="tab-btn" data-tab="links" data-translate="tab_links">Whitelisted Links</button>
+            <button class="tab-btn" data-tab="music" data-translate="tab_music">Music</button>
+            <button class="tab-btn" data-tab="games" data-translate="tab_games">Games</button>
+            <button class="tab-btn" data-tab="general" data-translate="tab_general">General</button>
+        </div>
+
+        <div class="settings-content">
+            <!-- Moderation Tab -->
+            <div class="tab-content active" id="moderation">
+                <h2 data-translate="mod_title">Moderation Settings</h2>
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label for="warnThreshold" data-translate="mod_warn">Warnings before kick:</label>
+                        <input type="number" id="warnThreshold" name="moderation[warn_threshold]" min="1" max="20" placeholder="5">
+                    </div>
+                    <div class="form-group">
+                        <label for="kickThreshold" data-translate="mod_kick">Kicks before ban:</label>
+                        <input type="number" id="kickThreshold" name="moderation[kick_threshold]" min="1" max="20" placeholder="3">
+                    </div>
+                    <div class="form-group">
+                        <label for="defaultTimeout" data-translate="mod_timeout">Default timeout (minutes):</label>
+                        <input type="number" id="defaultTimeout" name="moderation[default_timeout]" min="1" max="40320" placeholder="60">
+                    </div>
+                    <button type="submit" class="save-btn" data-translate="save">Save Changes</button>
+                </form>
+            </div>
+
+            <!-- Auto Moderation Tab -->
+            <div class="tab-content" id="automod">
+                <h2 data-translate="automod_title">Auto Moderation</h2>
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label for="spamDetection">
+                            <input type="checkbox" id="spamDetection" name="automod[spam_detection]">
+                            <span data-translate="automod_spam">Enable Spam Detection</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="capsDetection">
+                            <input type="checkbox" id="capsDetection" name="automod[caps_detection]">
+                            <span data-translate="automod_caps">Block Excessive Caps (>50%)</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="mentionLimit" data-translate="automod_mention">Mention limit per message:</label>
+                        <input type="number" id="mentionLimit" name="automod[mention_limit]" min="1" max="50" placeholder="5">
+                    </div>
+                    <button type="submit" class="save-btn" data-translate="save">Save Changes</button>
+                </form>
+            </div>
+
+            <!-- Logging Tab -->
+            <div class="tab-content" id="logging">
+                <h2 data-translate="log_title">Logging Settings</h2>
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label for="logChannel" data-translate="log_channel">Log Channel ID:</label>
+                        <input type="text" id="logChannel" name="logging[channel_id]" placeholder="Channel ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="logMessages">
+                            <input type="checkbox" id="logMessages" name="logging[log_messages]">
+                            <span data-translate="log_messages">Log deleted messages</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="logEdits">
+                            <input type="checkbox" id="logEdits" name="logging[log_edits]">
+                            <span data-translate="log_edits">Log edited messages</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="logMember">
+                            <input type="checkbox" id="logMember" name="logging[log_member_updates]">
+                            <span data-translate="log_member">Log member updates</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="save-btn" data-translate="save">Save Changes</button>
+                </form>
+            </div>
+
+            <!-- Welcome Tab -->
+            <div class="tab-content" id="welcome">
+                <h2 data-translate="welcome_title">Welcome Settings</h2>
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label for="welcomeEnabled">
+                            <input type="checkbox" id="welcomeEnabled" name="welcome[enabled]">
+                            <span data-translate="welcome_enable">Enable welcome messages</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="welcomeChannel" data-translate="welcome_channel">Welcome Channel ID:</label>
+                        <input type="text" id="welcomeChannel" name="welcome[channel_id]" placeholder="Channel ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="welcomeMessage" data-translate="welcome_msg">Welcome message:</label>
+                        <textarea id="welcomeMessage" name="welcome[message]" placeholder="Welcome {user} to {server}!"></textarea>
+                    </div>
+                    <button type="submit" class="save-btn" data-translate="save">Save Changes</button>
+                </form>
+            </div>
+
+            <!-- Bad Words Tab -->
+            <div class="tab-content" id="badwords">
+                <h2 data-translate="badwords_title">Bad Words Filter</h2>
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label data-translate="badwords_add">Add bad word:</label>
+                        <div class="input-group">
+                            <input type="text" id="newBadWord" placeholder="Enter word..." />
+                            <button type="button" class="add-btn" onclick="addBadWord()" data-translate="add">Add</button>
+                        </div>
+                    </div>
+                    <div class="word-list" id="badWordsList"></div>
+                    <button type="submit" class="save-btn" data-translate="save">Save All Changes</button>
+                </form>
+            </div>
+
+            <!-- Whitelisted Links Tab -->
+            <div class="tab-content" id="links">
+                <h2 data-translate="links_title">Whitelisted Links</h2>
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label data-translate="links_add">Add whitelisted domain:</label>
+                        <div class="input-group">
+                            <input type="text" id="newLink" placeholder="example.com" />
+                            <button type="button" class="add-btn" onclick="addLink()" data-translate="add">Add</button>
+                        </div>
+                    </div>
+                    <div class="link-list" id="linksList"></div>
+                    <button type="submit" class="save-btn" data-translate="save">Save All Changes</button>
+                </form>
+            </div>
+
+            <!-- Music Tab -->
+            <div class="tab-content" id="music">
+                <h2 data-translate="music_title">Music Settings</h2>
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label for="musicEnabled">
+                            <input type="checkbox" id="musicEnabled" name="music_settings[enabled]">
+                            <span data-translate="music_enable">Enable music commands</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="maxQueueSize" data-translate="music_queue">Max queue size:</label>
+                        <input type="number" id="maxQueueSize" name="music_settings[max_queue]" min="10" max="1000" placeholder="100">
+                    </div>
+                    <button type="submit" class="save-btn" data-translate="save">Save Changes</button>
+                </form>
+            </div>
+
+            <!-- Games Tab -->
+            <div class="tab-content" id="games">
+                <h2 data-translate="games_title">Games Settings</h2>
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label for="gamesEnabled">
+                            <input type="checkbox" id="gamesEnabled" name="games_settings[enabled]">
+                            <span data-translate="games_enable">Enable games</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="save-btn" data-translate="save">Save Changes</button>
+                </form>
+            </div>
+
+            <!-- General Tab -->
+            <div class="tab-content" id="general">
+                <h2 data-translate="general_title">General Settings</h2>
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label for="prefix" data-translate="prefix">Command prefix:</label>
+                        <input type="text" id="prefix" name="prefix" maxlength="3" placeholder="!">
+                    </div>
+                    <div class="form-group">
+                        <label for="language" data-translate="lang">Language:</label>
+                        <select id="language" name="language">
+                            <option value="en">English</option>
+                            <option value="hu">Hungarian</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="save-btn" data-translate="save">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                settings_title: "Server Settings - Shadow-MOD",
+                settings_header: "Server Settings",
+                lang_en: "EN",
+                lang_hu: "HU",
+                logout: "Logout",
+                back: "← Back to Servers",
+                tab_moderation: "Moderation",
+                tab_automod: "Auto Moderation",
+                tab_logging: "Logging",
+                tab_welcome: "Welcome",
+                tab_badwords: "Bad Words",
+                tab_links: "Whitelisted Links",
+                tab_music: "Music",
+                tab_games: "Games",
+                tab_general: "General",
+                mod_title: "Moderation Settings",
+                mod_warn: "Warnings before kick:",
+                mod_kick: "Kicks before ban:",
+                mod_timeout: "Default timeout (minutes):",
+                automod_title: "Auto Moderation",
+                automod_spam: "Enable Spam Detection",
+                automod_caps: "Block Excessive Caps (>50%)",
+                automod_mention: "Mention limit per message:",
+                log_title: "Logging Settings",
+                log_channel: "Log Channel ID:",
+                log_messages: "Log deleted messages",
+                log_edits: "Log edited messages",
+                log_member: "Log member updates",
+                welcome_title: "Welcome Settings",
+                welcome_enable: "Enable welcome messages",
+                welcome_channel: "Welcome Channel ID:",
+                welcome_msg: "Welcome message:",
+                badwords_title: "Bad Words Filter",
+                badwords_add: "Add bad word:",
+                links_title: "Whitelisted Links",
+                links_add: "Add whitelisted domain:",
+                music_title: "Music Settings",
+                music_enable: "Enable music commands",
+                music_queue: "Max queue size:",
+                games_title: "Games Settings",
+                games_enable: "Enable games",
+                general_title: "General Settings",
+                prefix: "Command prefix:",
+                lang: "Language:",
+                save: "Save Changes",
+                add: "Add",
+                save_success: "Settings saved successfully!",
+                save_failed: "Failed to save settings"
+            },
+            hu: {
+                settings_title: "Szerver Beállítások - Shadow-MOD",
+                settings_header: "Szerver Beállítások",
+                lang_en: "EN",
+                lang_hu: "HU",
+                logout: "Kijelentkezés",
+                back: "← Vissza a Szerverekhez",
+                tab_moderation: "Moderáció",
+                tab_automod: "Automatikus Moderáció",
+                tab_logging: "Naplózás",
+                tab_welcome: "Üdvözlés",
+                tab_badwords: "Tiltott Szavak",
+                tab_links: "Engedélyezett Linkek",
+                tab_music: "Zene",
+                tab_games: "Játékok",
+                tab_general: "Általános",
+                mod_title: "Moderáció Beállítások",
+                mod_warn: "Figyelmeztetések a kirúgás előtt:",
+                mod_kick: "Kirúgások a kitiltás előtt:",
+                mod_timeout: "Alapértelmezett időzítés (perc):",
+                automod_title: "Automatikus Moderáció",
+                automod_spam: "Spam Detektálás Engedélyezése",
+                automod_caps: "Túlzott Nagybetűk Blokkolása (>50%)",
+                automod_mention: "Megemlítés korlát üzenetenként:",
+                log_title: "Naplózás Beállítások",
+                log_channel: "Napló Csatorna ID:",
+                log_messages: "Törölt üzenetek naplózása",
+                log_edits: "Szerkesztett üzenetek naplózása",
+                log_member: "Tag frissítések naplózása",
+                welcome_title: "Üdvözlés Beállítások",
+                welcome_enable: "Üdvözlő üzenetek engedélyezése",
+                welcome_channel: "Üdvözlés Csatorna ID:",
+                welcome_msg: "Üdvözlő üzenet:",
+                badwords_title: "Tiltott Szavak Szűrő",
+                badwords_add: "Tiltott szó hozzáadása:",
+                links_title: "Engedélyezett Linkek",
+                links_add: "Engedélyezett domain hozzáadása:",
+                music_title: "Zene Beállítások",
+                music_enable: "Zenelejátszás parancsok engedélyezése",
+                music_queue: "Sor maximális mérete:",
+                games_title: "Játékok Beállítások",
+                games_enable: "Játékok engedélyezése",
+                general_title: "Általános Beállítások",
+                prefix: "Parancs előtag:",
+                lang: "Nyelv:",
+                save: "Módosítások Mentése",
+                add: "Hozzáadás",
+                save_success: "Beállítások sikeresen mentve!",
+                save_failed: "Beállítások mentése sikertelen"
+            }
+        };
+
+        const guildId = '{{ guild_id }}';
+        let currentSettings = {};
+        let currentLang = localStorage.getItem('dashboardLang') || 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('dashboardLang', lang);
+            
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            const toggle = document.getElementById('langToggle');
+            if (toggle) {
+                toggle.checked = (lang === 'hu');
+            }
+        }
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Load settings
+        async function loadSettings() {
+            setLanguage(currentLang);
+            try {
+                const response = await fetch(`/api/settings/${guildId}`);
+                currentSettings = await response.json();
+                populateForm();
+            } catch (error) {
+                console.error('Failed to load settings:', error);
+                alert(translations[currentLang].save_failed);
+            }
+        }
+
+        function populateForm() {
+            document.getElementById('warnThreshold').value = currentSettings.moderation?.warn_threshold || 5;
+            document.getElementById('kickThreshold').value = currentSettings.moderation?.kick_threshold || 3;
+            document.getElementById('defaultTimeout').value = currentSettings.moderation?.default_timeout || 60;
+
+            document.getElementById('spamDetection').checked = currentSettings.automod?.spam_detection || false;
+            document.getElementById('capsDetection').checked = currentSettings.automod?.caps_detection || false;
+            document.getElementById('mentionLimit').value = currentSettings.automod?.mention_limit || 5;
+
+            document.getElementById('logChannel').value = currentSettings.logging?.channel_id || '';
+            document.getElementById('logMessages').checked = currentSettings.logging?.log_messages || false;
+            document.getElementById('logEdits').checked = currentSettings.logging?.log_edits || false;
+            document.getElementById('logMember').checked = currentSettings.logging?.log_member_updates || false;
+
+            document.getElementById('welcomeEnabled').checked = currentSettings.welcome?.enabled || false;
+            document.getElementById('welcomeChannel').value = currentSettings.welcome?.channel_id || '';
+            document.getElementById('welcomeMessage').value = currentSettings.welcome?.message || '';
+
+            renderBadWords();
+            renderLinks();
+
+            document.getElementById('musicEnabled').checked = currentSettings.music_settings?.enabled || false;
+            document.getElementById('maxQueueSize').value = currentSettings.music_settings?.max_queue || 100;
+
+            document.getElementById('gamesEnabled').checked = currentSettings.games_settings?.enabled || false;
+
+            document.getElementById('prefix').value = currentSettings.prefix || '!';
+            document.getElementById('language').value = currentSettings.language || 'en';
+        }
+
+        function renderBadWords() {
+            const list = document.getElementById('badWordsList');
+            list.innerHTML = '';
+            currentSettings.bad_words?.forEach(word => {
+                const tag = document.createElement('div');
+                tag.className = 'tag';
+                tag.innerHTML = `${word} <button type="button" class="remove-btn" onclick="removeBadWord('${word}')">×</button>`;
+                list.appendChild(tag);
+            });
+        }
+
+        function renderLinks() {
+            const list = document.getElementById('linksList');
+            list.innerHTML = '';
+            currentSettings.whitelisted_links?.forEach(link => {
+                const tag = document.createElement('div');
+                tag.className = 'tag';
+                tag.innerHTML = `${link} <button type="button" class="remove-btn" onclick="removeLink('${link}')">×</button>`;
+                list.appendChild(tag);
+            });
+        }
+
+        function addBadWord() {
+            const input = document.getElementById('newBadWord');
+            const word = input.value.trim().toLowerCase();
+            if (word && !currentSettings.bad_words.includes(word)) {
+                currentSettings.bad_words.push(word);
+                renderBadWords();
+                input.value = '';
+            }
+        }
+
+        function removeBadWord(word) {
+            currentSettings.bad_words = currentSettings.bad_words.filter(w => w !== word);
+            renderBadWords();
+        }
+
+        function addLink() {
+            const input = document.getElementById('newLink');
+            const link = input.value.trim().toLowerCase();
+            if (link && !currentSettings.whitelisted_links.includes(link)) {
+                currentSettings.whitelisted_links.push(link);
+                renderLinks();
+                input.value = '';
+            }
+        }
+
+        function removeLink(link) {
+            currentSettings.whitelisted_links = currentSettings.whitelisted_links.filter(l => l !== link);
+            renderLinks();
+        }
+
+        // Save settings
+        document.querySelectorAll('.settings-form').forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                const data = {};
+
+                for (let [key, value] of formData.entries()) {
+                    if (key.includes('[')) {
+                        const parts = key.match(/(\w+)\[(\w+)\]/);
+                        if (parts) {
+                            if (!data[parts[1]]) data[parts[1]] = {};
+                            data[parts[1]][parts[2]] = value === 'on' ? true : value;
+                        }
+                    } else {
+                        data[key] = value;
+                    }
+                }
+
+                data.bad_words = currentSettings.bad_words;
+                data.whitelisted_links = currentSettings.whitelisted_links;
+
+                try {
+                    const response = await fetch(`/api/settings/${guildId}`, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        alert(translations[currentLang].save_success);
+                    } else {
+                        alert(translations[currentLang].save_failed);
+                    }
+                } catch (error) {
+                    console.error('Save error:', error);
+                    alert(translations[currentLang].save_failed);
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', loadSettings);
+        
+        const toggle = document.getElementById('langToggle');
+        if (toggle) {
+            toggle.addEventListener('change', (e) => {
+                setLanguage(e.target.checked ? 'hu' : 'en');
+            });
+        }
+    </script>
+</body>
+</html>
