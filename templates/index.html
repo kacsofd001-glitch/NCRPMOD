@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Shadow-MOD ✨ | Futuristic Discord Bot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=202511092440">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/dashboard" class="nav-link">
+                📊 <span data-translate="nav_dashboard">Dashboard</span>
+            </a>
+            <a href="/help" class="nav-link pink">
+                📖 <span data-translate="nav_commands">Commands</span>
+            </a>
+            <a href="https://discord.gg/w6s6qA4E7E" target="_blank" class="nav-link purple">
+                💬 <span data-translate="nav_support">Support</span>
+            </a>
+            <a href="https://discord.com/api/oauth2/authorize?client_id=928675592159780915&permissions=8&scope=bot%20applications.commands" target="_blank" class="nav-link gradient">
+                ➕ <span data-translate="nav_addbot">Add Bot</span>
+            </a>
+            
+            <div class="lang-toggle-container">
+                <span class="lang-label en">EN</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="langToggle">
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-knob"></span>
+                </label>
+                <span class="lang-label hu">HU</span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo-glow"></div>
+                <h1 class="title">
+                    <span class="cyber-glitch" data-text="SHADOW-MOD">SHADOW-MOD</span>
+                    <span class="sparkle">✨</span>
+                </h1>
+            </div>
+            <p class="subtitle" data-translate="subtitle">Next-Gen Discord Moderation System</p>
+            <a href="/help" class="command-button" style="margin: 20px 0;">
+                📖 <span data-translate="view_all_commands">View All Commands</span>
+            </a>
+            <br><br>
+            <span class="status-badge {{ status }}">
+                <span class="pulse"></span>
+                <span data-translate="status_online">SYSTEM {{ status | upper }}</span>
+            </span>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🌐</div>
+                <div class="stat-value">{{ guilds }}</div>
+                <div class="stat-label" data-translate="active_servers">Active Servers</div>
+                <div class="stat-glow"></div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-value">{{ users }}</div>
+                <div class="stat-label" data-translate="total_users">Total Users</div>
+                <div class="stat-glow"></div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">📡</div>
+                <div class="stat-value">{{ channels }}</div>
+                <div class="stat-label" data-translate="active_channels">Active Channels</div>
+                <div class="stat-glow"></div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-value">{{ uptime }}</div>
+                <div class="stat-label" data-translate="system_uptime">System Uptime</div>
+                <div class="stat-glow"></div>
+            </div>
+        </div>
+
+        <div class="features-section">
+            <h2 class="section-title">
+                <span class="cyber-line"></span>
+                <span data-translate="core_features">CORE FEATURES</span>
+                <span class="cyber-line"></span>
+            </h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3 data-translate="verification_title">Verification System</h3>
+                    <p data-translate="verification_desc">Anti-alt protection with button verification</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 data-translate="ai_title">AI Assistant</h3>
+                    <p data-translate="ai_desc">OpenAI-powered chat responses</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3 data-translate="mod_title">Advanced Moderation</h3>
+                    <p data-translate="mod_desc">Ban, kick, timeout, warnings & more</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎵</div>
+                    <h3 data-translate="music_title">Music Player</h3>
+                    <p data-translate="music_desc">🎥 YouTube • 🟢 Spotify • ☁️ SoundCloud</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3 data-translate="games_title">Interactive Games</h3>
+                    <p data-translate="games_desc">RPS, Tic-Tac-Toe & mini-games</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3 data-translate="multilang_title">Multilingual</h3>
+                    <p data-translate="multilang_desc">Full English & Hungarian support</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 data-translate="slash_title">37 Slash Commands</h3>
+                    <p data-translate="slash_desc">Active Developer Badge ready</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-stack">
+            <div class="tech-item">
+                <span class="tech-dot"></span>
+                Python 3.11
+            </div>
+            <div class="tech-item">
+                <span class="tech-dot"></span>
+                Discord.py
+            </div>
+            <div class="tech-item">
+                <span class="tech-dot"></span>
+                OpenAI API
+            </div>
+            <div class="tech-item">
+                <span class="tech-dot"></span>
+                Flask
+            </div>
+        </div>
+
+        <div class="features-section" style="margin-top: 40px;">
+            <h2 class="section-title">
+                <span class="cyber-line"></span>
+                <span data-translate="quick_links">QUICK LINKS</span>
+                <span class="cyber-line"></span>
+            </h2>
+            
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 30px 0;">
+                <a href="https://discord.gg/w6s6qA4E7E" target="_blank" style="display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #00F3FF, #8B00FF); color: white; text-decoration: none; border-radius: 25px; font-weight: bold; font-size: 1.1em; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0, 243, 255, 0.4);">
+                    💬 <span data-translate="join_support">Join Support Server</span>
+                </a>
+                <a href="https://discord.com/api/oauth2/authorize?client_id=928675592159780915&permissions=8&scope=bot%20applications.commands" target="_blank" style="display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #FF006E, #8B00FF); color: white; text-decoration: none; border-radius: 25px; font-weight: bold; font-size: 1.1em; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(255, 0, 110, 0.4);">
+                    ➕ <span data-translate="add_bot_server">Add Bot to Server</span>
+                </a>
+            </div>
+        </div>
+
+        <div style="background: rgba(0, 0, 0, 0.6); border: 2px solid rgba(139, 0, 255, 0.3); border-radius: 20px; padding: 30px; margin: 40px 0; text-align: center; backdrop-filter: blur(10px);">
+            <h2 style="color: #00F3FF; font-size: 1.8em; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px;"><span data-translate="meet_dev">👑 MEET THE DEVELOPER</span></h2>
+            <div style="max-width: 600px; margin: 0 auto;">
+                <p style="color: #FF006E; font-size: 1.3em; font-weight: bold; margin-bottom: 10px;" data-translate="owner_title">Bot Owner & Creator</p>
+                <p style="color: #B0B0B0; font-size: 1.1em; line-height: 1.8;" data-translate="owner_desc">
+                    Shadow-MOD is developed and maintained with passion to bring the next generation of Discord moderation to your servers. Built with cutting-edge technology and futuristic design, this bot combines powerful features with an intuitive user experience.
+                </p>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(139, 0, 255, 0.1); border-left: 4px solid #8B00FF; border-radius: 10px;">
+                    <p style="color: #00F3FF; font-weight: bold; margin-bottom: 5px;"><span data-translate="vision">✨ Vision</span></p>
+                    <p style="color: #B0B0B0;" data-translate="vision_desc">Creating a futuristic Discord experience with AI-powered moderation, multilingual support, and seamless automation for communities worldwide.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p data-translate="powered_by">Powered by Replit • Created with 💜</p>
+            <p class="version" data-translate="version">Made by MoonlightVFX</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}?v=202511092440"></script>
+</body>
+</html>
