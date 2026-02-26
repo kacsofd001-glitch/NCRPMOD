@@ -114,3 +114,16 @@ def set_guild_prefix(guild_id, prefix):
     config['guild_prefixes'][str(guild_id)] = prefix
     save_config(config)
     return prefix
+def refresh_config_cache():
+    """Force reload config from disk to sync with external changes (e.g., dashboard updates)"""
+    global _config_cache
+    with _cache_lock:
+        _config_cache = None  # Clear cache
+        return load_config()  # Reload from disk
+
+def get_cached_config():
+    """Get config from cache without reloading (fast access)"""
+    global _config_cache
+    if _config_cache is None:
+        return load_config()
+    return _config_cache

@@ -198,8 +198,25 @@ def api_update_settings(guild_id):
     try:
         data = request.get_json()
         update_guild_settings(guild_id, data)
-        return jsonify({'success': True, 'message': 'Settings updated'})
+        
+        # Also update bot_config.json to keep settings in sync with bot runtime
+        import config
+        bot_config = config.load_config()
+        
+        # Merge new settings into bot config
+        if 'moderation' in data:
+            if 'moderation_settings' not in bot_config:
+                bot_config['moderation_settings'] = {}
+            bot_config['moderation_settings'][guild_id] = data['moderation']
+        
+        # Save updated config back to file
+        with open('bot_config.json', 'w') as f:
+            json.dump(bot_config, f, indent=2)
+        
+        print(f"✅ Settings synced to bot config for guild {guild_id}", flush=True)
+        return jsonify({'success': True, 'message': 'Settings updated and synced'})
     except Exception as e:
+        print(f"❌ Error updating settings: {e}", flush=True)
         return jsonify({'error': str(e)}), 400
 
 @app.route('/api/servers')
@@ -216,6 +233,11 @@ def help_page():
     response = app.make_response(render_template('help.html'))
     response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
     return response
+
+@app.route('/commands')
+def commands():
+    """Alias for /help - redirects to commands page"""
+    return redirect('/help')
 
 @app.route('/api/stats')
 def api_stats():

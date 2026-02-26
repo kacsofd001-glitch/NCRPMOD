@@ -6,8 +6,319 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Shadow-MOD ✨ | Command Database</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=202511092455">
+    <title>Shadow-MOD ✨ | Commands</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modern_dashboard.css') }}?v=202602261">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 50%, #0a0a2e 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(10, 10, 30, 0.95);
+            border-bottom: 2px solid rgba(0, 243, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .commands-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .page-header h1 {
+            font-size: 3em;
+            color: #00F3FF;
+            text-shadow: 0 0 30px rgba(0, 243, 255, 0.8);
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #8B00FF;
+            font-size: 1.3em;
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .command-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(0, 243, 255, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .command-card:hover {
+            border-color: rgba(0, 243, 255, 0.8);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
+            transform: translateY(-8px);
+        }
+
+        .command-card h3 {
+            color: #00F3FF;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .command-item {
+            margin: 12px 0;
+            padding: 10px;
+            background: rgba(139, 0, 255, 0.1);
+            border-left: 3px solid #8B00FF;
+            border-radius: 5px;
+        }
+
+        .cmd-name {
+            color: #FF006E;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+
+        .cmd-desc {
+            color: #B0B0B0;
+            font-size: 0.95em;
+            margin-left: 5px;
+        }
+
+        .features-section {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(139, 0, 255, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            padding: 15px;
+            background: rgba(0, 243, 255, 0.05);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            color: #00F3FF;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(0, 243, 255, 0.15);
+            border-color: rgba(0, 243, 255, 0.6);
+        }
+
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .quick-link-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #00F3FF, #8B00FF);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 243, 255, 0.3);
+        }
+
+        .quick-link-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 243, 255, 0.5);
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .back-to-home a {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #FF006E, #8B00FF);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(139, 0, 255, 0.3);
+        }
+
+        .back-to-home a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(139, 0, 255, 0.5);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .developer-section {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(159, 102, 255, 0.4);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .developer-section h2 {
+            color: #00F3FF;
+            margin-bottom: 15px;
+        }
+
+        .developer-section p {
+            color: #B0B0B0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">ShadowMod</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/commands" class="nav-link active" data-translate="nav_commands">Commands</a>
+                <a href="/help" class="nav-link" data-translate="nav_help">Full Guide</a>
+                <a href="https://discord.gg/w6s6qA4E7E" target="_blank" class="nav-link" data-translate="nav_support">Support</a>
+                <div class="lang-toggle">
+                    <label class="lang-label">
+                        <input type="checkbox" id="langToggle">
+                        <span class="lang-text" id="langIndicator">EN</span>
+                        <div class="lang-slider"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="commands-container">
+        <div class="page-header">
+            <h1>✨ SHADOW-MOD COMMANDS</h1>
+            <p>70+ Slash Commands at Your Service</p>
+        </div>
+
+        <div class="commands-grid">
+            <div class="command-card">
+                <h3>📊 Information Systems</h3>
+                <div class="command-item"><span class="cmd-name">/help</span><span class="cmd-desc">- All available commands</span></div>
+                <div class="command-item"><span class="cmd-name">/serverinfo</span><span class="cmd-desc">- Server statistics</span></div>
+                <div class="command-item"><span class="cmd-name">/botinfo</span><span class="cmd-desc">- Bot features & uptime</span></div>
+                <div class="command-item"><span class="cmd-name">/userinfo [@user]</span><span class="cmd-desc">- User profile with badges</span></div>
+                <div class="command-item"><span class="cmd-name">/support</span><span class="cmd-desc">- Support server link</span></div>
+            </div>
+
+            <div class="command-card">
+                <h3>🔐 Security & Verification</h3>
+                <div class="command-item"><span class="cmd-name">/setupverify</span><span class="cmd-desc">- Configure verification</span></div>
+                <div class="command-item"><span class="cmd-name">/verify</span><span class="cmd-desc">- Verify yourself</span></div>
+                <div class="command-item"><span class="cmd-name">/setlog</span><span class="cmd-desc">- Set logging channel</span></div>
+                <div class="command-item"><span class="cmd-name">/setaltage</span><span class="cmd-desc">- Configure anti-alt</span></div>
+            </div>
+
+            <div class="command-card">
+                <h3>⚔️ Moderation</h3>
+                <div class="command-item"><span class="cmd-name">/ban [user]</span><span class="cmd-desc">- Ban user</span></div>
+                <div class="command-item"><span class="cmd-name">/kick [user]</span><span class="cmd-desc">- Kick user</span></div>
+                <div class="command-item"><span class="cmd-name">/mute [user]</span><span class="cmd-desc">- Mute user</span></div>
+                <div class="command-item"><span class="cmd-name">/warn [user]</span><span class="cmd-desc">- Warn user</span></div>
+                <div class="command-item"><span class="cmd-name">/purge [count]</span><span class="cmd-desc">- Delete messages</span></div>
+            </div>
+
+            <div class="command-card">
+                <h3>🎵 Music</h3>
+                <div class="command-item"><span class="cmd-name">/play [song]</span><span class="cmd-desc">- Play music</span></div>
+                <div class="command-item"><span class="cmd-name">/pause</span><span class="cmd-desc">- Pause music</span></div>
+                <div class="command-item"><span class="cmd-name">/skip</span><span class="cmd-desc">- Skip current song</span></div>
+                <div class="command-item"><span class="cmd-name">/queue</span><span class="cmd-desc">- Show queue</span></div>
+                <div class="command-item"><span class="cmd-name">/stop</span><span class="cmd-desc">- Stop music</span></div>
+            </div>
+
+            <div class="command-card">
+                <h3>🎮 Games & Fun</h3>
+                <div class="command-item"><span class="cmd-name">/connectfour [@user]</span><span class="cmd-desc">- Play Connect Four</span></div>
+                <div class="command-item"><span class="cmd-name">/guess</span><span class="cmd-desc">- Number guessing game</span></div>
+                <div class="command-item"><span class="cmd-name">/rps [choice]</span><span class="cmd-desc">- Rock-Paper-Scissors</span></div>
+                <div class="command-item"><span class="cmd-name">/joke</span><span class="cmd-desc">- Random joke</span></div>
+            </div>
+
+            <div class="command-card">
+                <h3>💰 Economy</h3>
+                <div class="command-item"><span class="cmd-name">/balance</span><span class="cmd-desc">- Check your balance</span></div>
+                <div class="command-item"><span class="cmd-name">/daily</span><span class="cmd-desc">- Daily reward</span></div>
+                <div class="command-item"><span class="cmd-name">/transfer</span><span class="cmd-desc">- Send currency</span></div>
+                <div class="command-item"><span class="cmd-name">/leaderboard</span><span class="cmd-desc">- Top members</span></div>
+            </div>
+        </div>
+
+        <div class="features-section">
+            <h2 style="color: #00F3FF;">✨ Built-in Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">⚡ Advanced Moderation</div>
+                <div class="feature-item">🤖 AI Chat Integration</div>
+                <div class="feature-item">🎵 Music Streaming</div>
+                <div class="feature-item">🌍 Multilingual (EN/HU)</div>
+                <div class="feature-item">📊 Server Analytics</div>
+                <div class="feature-item">🎮 Games & Minigames</div>
+                <div class="feature-item">💰 Economy System</div>
+                <div class="feature-item">🔐 Verification System</div>
+                <div class="feature-item">⚙️ Auto-roles & Messages</div>
+            </div>
+        </div>
+
+        <div class="quick-links">
+            <a href="https://discord.gg/w6s6qA4E7E" target="_blank" class="quick-link-btn">💬 Join Support Server</a>
+            <a href="https://discord.com/api/oauth2/authorize?client_id=928675592159780915&permissions=8&scope=bot%20applications.commands" target="_blank" class="quick-link-btn">➕ Add Bot to Server</a>
+        </div>
+
+        <div class="developer-section">
+            <h2>👑 Made by MoonlightVFX</h2>
+            <p>Shadow-MOD brings cutting-edge Discord bot management with AI-powered features, advanced moderation, and a futuristic design philosophy.</p>
+            <p style="margin-top: 15px; color: #00F3FF; font-weight: bold;">Built with passion for Discord communities worldwide 🚀</p>
+        </div>
+
+        <div class="back-to-home">
+            <a href="/">← Back to Home</a>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}?v=202602261"></script>
+</body>
+</html>
     <style>
         .command-section {
             background: rgba(0, 0, 0, 0.6);
